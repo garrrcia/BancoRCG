@@ -1,59 +1,62 @@
 # BancoRCG
-Projeto de conclusão de programação Android da pós-graduação CIn/Motorola T26 - 2024.2
-A aplicação Banco está parcialmente implementada no momento. Existem vários métodos e trechos de códigos com anotações lembrando que faltam implementar alguns detalhes da aplicação.
 
-Na classe ContasActivity, já há um RecyclerView que usa um Adapter para mostrar uma lista de contas, mas os dados ainda não estão sendo recuperados do banco de dados. Dica: use o atributo contas (com tipo LiveData<List<Conta>>) de ContaViewModel para fazer isto;
+## 1. Introdução
+* Título: BancoRCG: Um sistema bancário simples para gerenciamento de contas.
+* Descrição: Breve descrição do projeto, destacando as principais funcionalidades (criar contas, realizar transações, consultar saldos, etc.).
+* Objetivo: Projeto de conclusão da cadeira de programação Android da pós-graduação CIn/Motorola T26 - 2024.2
+* A aplicação Banco está parcialmente implementada no momento. Existem vários métodos e trechos de códigos com anotações lembrando que faltam implementar alguns detalhes da aplicação.
 
-Na classe ContaViewHolder, a imagem que é mostrada na lista de contas não é alterada caso o saldo esteja negativo. Inclua o código correspondente na função bindTo.
+## 2. Tecnologias Utilizadas
+* Linguagem de programação: Java
+* Framework: Android
+* Banco de dados: Room (SQLite)
+* Outras bibliotecas: LiveData, ViewModel, Coroutines (se utilizadas)
 
-Na classe ContaViewHolder, ajuste o código do listener dos botões de editar conta e remover conta para que a funcionalidade seja implementada;
+## 3. Arquitetura
+* Padrão MVVM: Model: Representa os dados do aplicativo. No BancoRCG, o Model inclui classes como Conta, Transacao e Cliente. Essas classes são mapeadas para o banco de dados usando o Room.
+View: É a interface do usuário, composta por Activities e Fragments. A View exibe os dados fornecidos pelo ViewModel e responde às interações do usuário.
+ViewModel: Atua como intermediário entre a View e o Model. Ele contém a lógica de negócios, manipula os dados e expõe esses dados para a View através de LiveData.
 
-Na classe ContaViewHolder, o Intent criado para enviar o usuário para a tela EditarContaActivity, não inclui o número da conta, informação essencial para recuperar os dados da conta na tela a ser aberta;
+1. Model (Camada de Dados):
 
-Na classe AdicionarContaActivity, inclua a funcionalidade de validar as informações digitadas (ex.: nenhum campo em branco, saldo é um número) antes de criar um objeto Conta no banco de dados. Implemente também o código que usa ContaViewModel para armazenar o objeto no banco de dados;
+** Entidades: As classes Conta, Transacao e Cliente representam as entidades do banco de dados.
+** DAO (Data Access Object): A interface DAO, definida no Room, define os métodos para interagir com o banco de dados, como inserir, atualizar, excluir e buscar dados.
+** Room: O Room é o ORM (Object Relational Mapper) do Android que simplifica a interação com o banco de dados SQLite. Ele mapeia as entidades Java para tabelas no banco de dados e gera automaticamente o código SQL necessário.
 
-Na classe ContaDAO, inclua métodos para atualizar e remover contas no banco de dados, além de três métodos para buscar (1) pelo número da conta, (2) pelo nome do cliente e (3) pelo CPF do cliente;
+2. ViewModel:
 
-Na classe ContaRepository, implemente o corpo dos métodos para atualizar e remover contas no banco de dados, além dos métodos para buscar pelo número da conta, pelo nome do cliente e pelo CPF do cliente. Estes métodos devem usar os métodos criados na classe ContaDAO no passo anterior;
+LiveData: O ViewModel expõe os dados para a View através de LiveData. LiveData é um objeto observável que notifica as Views automaticamente quando os dados mudam.
+Repositório: O ViewModel geralmente delega as operações de banco de dados para um repositório. O repositório encapsula a lógica de acesso ao banco de dados e pode fornecer uma camada de abstração para diferentes fontes de dados (por exemplo, banco de dados local, servidor remoto).
+** Lógica de negócio: O ViewModel contém a lógica de negócio, como calcular o saldo total de uma conta, realizar transferências e validar dados.
 
-Na classe ContaViewModel, inclua métodos para atualizar e remover contas no banco de dados, além de um método para buscar pelo número da conta. Estes métodos devem usar os métodos criados na classe ContaRepository no passo anterior;
+3. View:
 
-Na classe EditarContaActivity, inclua a funcionalidade de recuperar as informações da conta de acordo com o número passado pelo Intent recebido pela Activity. Atualize os campos do formulário de acordo;
+** Activities e Fragments: As Activities e Fragments são responsáveis por criar a interface do usuário e exibir os dados fornecidos pelo ViewModel.
+** Data Binding: O Data Binding pode ser utilizado para conectar os elementos da interface diretamente aos dados do ViewModel, reduzindo a quantidade de código boilerplate.
+** RecyclerView: É usado para exibir listas de contas e transações de forma eficiente.
 
-Na classe EditarContaActivity, inclua a funcionalidade de validar as informações digitadas (ex.: nenhum campo em branco, saldo é um número) antes de atualizar a Conta no banco de dados. Implemente também o código que usa ContaViewModel para armazenar o objeto atualizado no banco de dados;
+* Diagrama de classes: Um diagrama simplificado para visualizar a relação entre as classes principais.
+* Fluxograma: Um fluxograma básico para mostrar o fluxo de dados entre as diferentes camadas do aplicativo.
 
-Na classe EditarContaActivity, implemente o código que usa ContaViewModel para remover o objeto do banco de dados;
+## 4. Instalação e Configuração
+* Pré-requisitos: Quais ferramentas e SDKs são necessários para executar o projeto?
+* Clonagem do repositório: Instruções para clonar o repositório do GitHub.
+* Configuração do ambiente: Quaisquer configurações específicas que o desenvolvedor precise fazer.
 
-Na classe BancoViewModel, inclua métodos para realizar as operações de transferir, creditar, e debitar, bem como métodos para buscar pelo número da conta, pelo nome do cliente e pelo CPF do cliente. Estes métodos devem usar os métodos de ContaRepository criados em passos anteriores;
+* Para executar este projeto, você precisará:
 
-Nas classes DebitarActivity, CreditarActivity, e TransferirActivity, implementar validação dos números das contas e do valor da operação, antes de efetuar a operação correspondente à tela. Você é livre para usar outro widget se preferir, como Spinner ou AutoCompleteTextView, por exemplo;
+* Android Studio: Baixe e instale a última versão do Android Studio em https://developer.android.com/studio/.
+* SDK do Android: Instale o SDK do Android com as APIs necessárias para o seu projeto.
+* Clone o repositório:
 
-Na classe PesquisarActivity, implementar o código que faz busca no banco de dados de acordo com o tipo de busca escolhido pelo usuário (ver RadioGroup tipoPesquisa);
+```
+git clone https://github.com/seu-usuario/BancoRCG.git
+```
 
-Na classe PesquisarActivity, ao realizar uma busca, atualizar o RecyclerView com os resultados da busca na medida que encontrar algo;
+* Abra o projeto no Android Studio: Abra o diretório do projeto clonado no Android Studio.
+* Execute o aplicativo: Conecte um dispositivo físico ou inicie um emulador e execute o aplicativo.
 
-Na classe MainActivity, mostrar o valor total de dinheiro armazenado no banco na tela principal. Este valor deve ser a soma de todos os saldos das contas armazenadas no banco de dados. Atenção para a possibilidade das contas terem saldo negativo (ou não, dependendo de sua escolha).
-
-Na classe TransacaoViewHolder, o valor da transação está sempre sendo exibido em azul. Altere o código para que o valor da transação seja exibido em vermelho, no caso de transações de débito.
-
-Na classe TransacaoDAO, inclua métodos para buscar transações pelo (1) número da conta, (2) pela data, filtrando pelo tipo da transação (crédito, débito, ou todas);
-
-Na classe TransacaoRepository, implemente o corpo dos métodos para buscar transações pelo (1) número da conta, (2) pela data, filtrando pelo tipo da transação (crédito, débito, ou todas). Estes métodos devem usar os métodos criados na classe TransacaoDAO no passo anterior;
-
-Na classe TransacaoViewModel, inclua métodos para realizar as buscas, usando os métodos criados na classe ContaRepository no passo anterior;
-
-Na classe TransacoesActivity, implementar o código que faz busca no banco de dados de acordo com o tipo de busca escolhido pelo usuário (ver RadioGroup tipoPesquisa) e exibe (atualiza) a lista na tela. O RecyclerView deve mostrar todas as transações inicialmente;
-
-Daqui em diante - Opcional
-Incluir as telas para gerenciamento de Clientes e ajustar implementação do BD para refletir relacionamento em que toda Conta tem apenas um Cliente associado, mas um Cliente pode ter mais de uma Conta - neste caso, ao adicionar uma conta tem que verificar se o Cliente é válido (se é um Cliente já existente no banco);
-
-Extrair as strings e traduzir a aplicação para outra língua;
-
-Fazer melhorias de UI na aplicação.
-
-ATENÇÃO
-Entregue o arquivo .zip com a pasta do projeto, após dar um "Clean Project" na IDE (para diminuir o tamanho);
-Inclua comentários no código explicando o que faz cada método criado por você na implementação da aplicação;
-Escreva também um arquivo README.md ou um Google Docs explicando a sua implementação, informando quais os passos que você completou (vide numeração acima para identificar);
-Se não for implementar a parte Opcional 1, não vai precisar mexer em nada que tem no pacote br.ufpe.cin.residencia.banco.cliente;
-Faça um vídeo da sua aplicação rodando, demonstrando o que você conseguiu implementar.
+## 5. Uso
+* Execução do aplicativo: Como executar o aplicativo no emulador ou em um dispositivo físico.
+* Funcionalidades principais: Descrição detalhada de cada funcionalidade, com exemplos de como utilizá-las.
+* Telas e fluxos: Descrição das principais telas do aplicativo e como elas se conectam.
