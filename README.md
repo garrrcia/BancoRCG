@@ -12,7 +12,7 @@ BancoRCG é um aplicativo Android desenvolvido em Java que simula um sistema ban
 Projeto de conclusão da cadeira de programação Android da pós-graduação CIn/Motorola T26 - 2024.2
 A aplicação Banco está parcialmente implementada no momento. Existem vários métodos e trechos de códigos com anotações lembrando que faltam implementar alguns detalhes da aplicação.
 
-## 2. Funcionalidades:
+## 2. Funcionalidades
 
 * Cadastro e gerenciamento de contas: Criação, edição, exclusão e visualização de contas.
 * Realização de transações: Crédito, débito e transferência entre contas.
